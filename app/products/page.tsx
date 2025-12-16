@@ -6,6 +6,7 @@ import { fetchProducts } from "@/lib/fetcher";
 import Skeleton from "@/components/ui/Skeleton";
 import Card from "@/components/ui/Card";
 import Input from "@/components/ui/Input";
+import Image from "next/image";
 
 type Product = {
   id: number;
@@ -69,8 +70,8 @@ export default function ProductsPage() {
       {/* Header + Filters */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         {/* Left text */}
-        <h2 className="text-lg font-semibold text-cyan-500">
-          Be Bold
+        <h2 className="text-lg font-semibold text-cyan-500 text-center md:text-left">
+          Discover Quality. Shop with Confidence.
         </h2>
 
         {/* Filters + Search */}
@@ -133,10 +134,14 @@ export default function ProductsPage() {
             <Card>
               <div className="group flex flex-col">
                 <div className="relative flex h-40 items-center justify-center overflow-hidden rounded-lg bg-gray-100">
-                  <img
+                  <Image
                     src={p.image}
                     alt={p.title}
-                    className="h-full object-contain transition-transform duration-300 group-hover:scale-105"
+                    fill
+                    style={{ objectFit: "contain" }}
+                    className="transition-transform duration-300 group-hover:scale-105"
+                    priority={false}
+                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   />
                 </div>
 

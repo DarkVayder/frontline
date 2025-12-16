@@ -64,10 +64,10 @@ export default function Header() {
       {open && (
         <div className="fixed mt-60 inset-0 z-50 flex items-center justify-center bg-black/90 md:hidden">
           {/* Glass panel */}
-          <div className="relative w-full max-w-sm rounded-2xl border border-white/10 bg-white/10 backdrop-blur-3xl shadow-2xl p-6 flex flex-col items-center justify-center space-y-6">
+          <div className="relative w-full max-w-sm rounded-2xl border border-white/10 bg-gray-400 shadow-2xl p-6 flex flex-col items-center justify-center space-y-6">
             {/* Close Button */}
             <button
-              className="absolute top-4 right-4 text-gray-200 hover:text-white transition"
+              className="absolute top-4 right-4 text-red-500 hover:text-red-900 transition"
               onClick={() => setOpen(false)}
             >
               <FiX size={28} />
@@ -108,7 +108,10 @@ function NavItem({
     <Link
       href={href}
       onClick={onClick}
-      className={`flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-gray-200 transition-all hover:scale-105 hover:shadow-lg hover:text-white ${hoverClass}`}
+      className={`flex items-center justify-center gap-2 rounded-xl px-6 py-3
+    text-black md:text-gray-200
+      transition-all hover:scale-105 hover:shadow-lg
+    hover:text-white ${hoverClass}`}
     >
       <Icon size={20} />
       {label}

@@ -11,6 +11,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <title>Frontline</title>
+        <meta
+          name="description"
+          content="Multi-Tenant Frontend App"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
       <body className="antialiased bg-gray-950">
         <Header />
         <ToastContainer position="top-right" autoClose={2000} />

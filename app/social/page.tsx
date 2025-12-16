@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react';
+import Image from "next/image";
 import {
   User,
   MessageSquare,
@@ -140,10 +141,12 @@ export default function App() {
         </div>
 
         <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-800/30 hover:bg-slate-800/50 cursor-pointer transition-all duration-200 border border-slate-800/50">
-          <img
-            src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=150"
+          <Image
+            src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg"
             alt="Profile"
-            className="h-10 w-10 rounded-full object-cover border-2 border-slate-700"
+            width={40}
+            height={40}
+            className="rounded-full object-cover border-2 border-slate-700"
           />
           <div className="flex-1">
             <div className="font-medium text-sm">You</div>
@@ -160,10 +163,12 @@ export default function App() {
           {/* Create Post */}
           <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-800/50 shadow-xl">
             <div className="flex gap-4">
-              <img
-                src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=150"
-                alt="Your avatar"
-                className="h-12 w-12 rounded-full object-cover border-2 border-slate-700"
+              <Image
+                src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg"
+                alt="Profile"
+                width={40}
+                height={40}
+                className="rounded-full object-cover border-2 border-slate-700"
               />
               <input
                 type="text"
@@ -190,20 +195,37 @@ export default function App() {
           {/* Stories */}
           <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
             {stories.map((story, idx) => (
-              <div key={idx} className="flex flex-col items-center flex-shrink-0 cursor-pointer group">
-                <div className={`relative ${story.hasStory ? 'p-1 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-2xl' : ''}`}>
-                  <img
-                    src={story.image}
-                    alt={story.name}
-                    className="h-20 w-20 rounded-xl object-cover border-4 border-slate-900"
-                  />
+              <div
+                key={idx}
+                className="flex flex-col items-center flex-shrink-0 cursor-pointer group"
+              >
+                {/* Fixed-size container */}
+                <div className="relative h-[88px] w-[88px] rounded-2xl flex items-center justify-center">
+                  {/* Gradient ring */}
+                  {story.hasStory && (
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600" />
+                  )}
+
+                  {/* Image */}
+                  <div className="relative h-[80px] w-[80px] rounded-xl overflow-hidden bg-slate-900 z-10">
+                    <Image
+                      src={story.image}
+                      alt={story.name}
+                      fill
+                      sizes="80px"
+                      className="object-cover"
+                    />
+                  </div>
+
+                  {/* Add button */}
                   {!story.hasStory && (
-                    <div className="absolute bottom-0 right-0 h-6 w-6 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center border-2 border-slate-900">
+                    <div className="absolute bottom-1 right-1 z-20 h-6 w-6 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center border-2 border-slate-900">
                       <Plus size={14} className="text-white" />
                     </div>
                   )}
                 </div>
-                <span className="text-xs text-slate-400 mt-2 max-w-[80px] truncate group-hover:text-white transition-colors">
+
+                <span className="text-xs text-slate-400 mt-2 max-w-[88px] truncate group-hover:text-white transition-colors">
                   {story.name}
                 </span>
               </div>
@@ -220,10 +242,12 @@ export default function App() {
                 <div className="p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex gap-3">
-                      <img
+                     <Image
                         src={post.avatar}
                         alt={post.author}
-                        className="h-12 w-12 rounded-full object-cover border-2 border-slate-700"
+                        width={48}
+                        height={48}
+                        className="rounded-full object-cover border-2 border-slate-700"
                       />
                       <div>
                         <h3 className="font-semibold text-white hover:text-cyan-400 cursor-pointer transition-colors">
@@ -240,11 +264,16 @@ export default function App() {
 
                   <p className="text-slate-200 leading-relaxed mb-4">{post.content}</p>
 
-                  <img
-                    src={post.image}
-                    alt="Post content"
-                    className="w-full rounded-xl object-cover cursor-pointer hover:opacity-95 transition-opacity"
-                  />
+                  <div className="relative w-full h-[420px] rounded-xl overflow-hidden">
+                    <Image
+                      src={post.image}
+                      alt="Post content"
+                      fill
+                      className="object-cover hover:opacity-95 transition-opacity"
+                      sizes="(max-width: 768px) 100vw, 768px"
+                      priority={post.id === 1}
+                    />
+                  </div>
                 </div>
 
                 <div className="px-6 py-3 flex items-center justify-between text-sm text-slate-400 border-t border-slate-800/50">
@@ -297,10 +326,12 @@ export default function App() {
           <div className="space-y-4">
             {suggestions.map((person, idx) => (
               <div key={idx} className="flex items-start gap-3 group">
-                <img
+                <Image
                   src={person.image}
                   alt={person.name}
-                  className="h-12 w-12 rounded-full object-cover border-2 border-slate-700 group-hover:border-cyan-500/50 transition-colors"
+                  width={48}
+                  height={48}
+                  className="rounded-full object-cover border-2 border-slate-700 group-hover:border-cyan-500/50 transition-colors"
                 />
                 <div className="flex-1 min-w-0">
                   <h4 className="font-medium text-white text-sm hover:text-cyan-400 cursor-pointer transition-colors truncate">
